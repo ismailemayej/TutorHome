@@ -11,8 +11,9 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const [reset, setReset] = useState();
 
-  const { googleLogin, clickLogin } = useContext(AuthContext);
+  const { googleLogin, clickLogin, PasswordReset } = useContext(AuthContext);
   const handleLonin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -20,10 +21,10 @@ const Login = () => {
     const password = form.password.value;
 
     clickLogin(email, password)
-      .then((result) => {
+      .then(() => {
         toast.success("login is successfully", { position: "top-center" });
       })
-      .catch((error) =>
+      .catch(() =>
         toast.warning("username or password wrong", { position: "top-center" })
       );
     navigate(from, { replce: true });
@@ -35,6 +36,21 @@ const Login = () => {
       .catch((error) => console.error(error));
   };
 
+  const handlepassword = () => {
+    PasswordReset(reset).then(() => {
+      toast
+        .success("Password reset email send", { position: "top-center" })
+        .catch((error) => console.error(error));
+    });
+  };
+  if (!reset) {
+    toast.warning("Please input Your email");
+  }
+
+  const handlereset = (event) => {
+    event.preventDefault();
+    setReset(event.target.value);
+  };
   return (
     <div className=" p-4 bg-white h-full grid justify-items-center">
       <ToastContainer />
@@ -49,9 +65,10 @@ const Login = () => {
           </h6>
           <input
             className=" text-green-600 border-white border w-full rounded px-4 py-2 bg-green-100"
-            type="text"
+            type="email"
             name="email"
             placeholder="email or phone number"
+            onBlur={handlereset}
           />
           <h6 className="mt-2 text-left  mb-1 font-semibold  text-green-600">
             Enter your Password
@@ -75,9 +92,7 @@ const Login = () => {
               Remember me
             </p>
             <p className="text-green-600">
-              <Link className="justify-end text-decoration-none" to="/forgot">
-                Forgot your password
-              </Link>
+              <button onClick={handlepassword}> Forgot Password</button>
             </p>
           </div>
 

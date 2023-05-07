@@ -34,7 +34,7 @@ const Register = () => {
       })
       .catch((error) => {
         console.error(error.code);
-        toast("error");
+        toast.warning(<p>{error.code}</p>);
       });
 
     if (!(password === confirmPassword)) {

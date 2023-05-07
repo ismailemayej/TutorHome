@@ -9,6 +9,7 @@ import Login from "../user/Login/Login";
 import Register from "../user/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Aply from "../Home/Items/Aply";
+import NotFound from "../NotFound";
 
 export const Routes = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const Routes = createBrowserRouter([
         loader: () => fetch("http://localhost:5000/hire"),
         element: <Home></Home>,
       },
+
       {
         path: "/blog",
         element: <Blog></Blog>,
@@ -57,6 +59,10 @@ export const Routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>,
       },
     ],
   },

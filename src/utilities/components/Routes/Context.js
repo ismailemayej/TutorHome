@@ -4,6 +4,7 @@ import {
   getAuth,
   onAuthStateChanged,
   sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -46,6 +47,11 @@ const Context = ({ children }) => {
   };
   // -------------- current user ----------------
 
+  // ----------reset password -------------
+  const PasswordReset = (email) => {
+    return sendPasswordResetEmail(Auth, email);
+  };
+
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(Auth, (currentuser) => {
       console.log(currentuser);
@@ -63,6 +69,7 @@ const Context = ({ children }) => {
     Logout,
     user,
     loading,
+    PasswordReset,
   };
 
   return (
