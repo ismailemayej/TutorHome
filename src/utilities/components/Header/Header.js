@@ -2,10 +2,17 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../tutor logo.png";
 import Navi from "../../../Navi";
+import { AuthContext } from "../Routes/Context";
 
 const Header = () => {
-  //   const { user } = useContext();
-  //   const Signout = () => {};
+  const { Logout } = useContext(AuthContext);
+  const Signout = () => {
+    Logout()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => console.error(error));
+  };
 
   return (
     <div className="flex items-center relative logo lg:ps-10 lg:p-1 p3 bg-lime-300">
@@ -30,51 +37,15 @@ const Header = () => {
 
       <Navi></Navi>
 
-      {/* <div
-        defaultActiveKey="./"
-        variant="pills"
-        className="hidden ms-32 lg:block flex-1 w-32 text"
-        bg="light"
-      >
-        <Link
-          className="text-white text-decoration-none px-3 bg-lime-600 py-1 rounded ms-4"
-          to="/"
-        >
-          Home
-        </Link>
-        <Link
-          className="text-white text-decoration-none px-3 bg-lime-600 py-1 rounded ms-4"
-          to="/blog"
-        >
-          blog
-        </Link>
-        <Link
-          className="text-white text-decoration-none px-3 bg-lime-600 py-1 rounded ms-4"
-          to="/about"
-        >
-          About
-        </Link>
-        <Link
-          className="text-white text-decoration-none px-3 bg-lime-600 py-1 rounded ms-4"
-          to="/contacus"
-        >
-          Contac us
-        </Link>
-      </div> */}
-      {/* {user?.uid ? (
-        <>
-          {user.email}
-          <button
-            className="ms-3 bg-lime-300 rounded px-5 py-1 "
-            type="submit"
-            onClick={Signout}
-            type="submit"
-          >
-            LogOut
-          </button>
-        </>
-      ) : ( */}
       <div>
+        <button
+          onClick={Signout}
+          className="text-white bg-lime-600 rounded lg:px-5 px-3 py-1 "
+          type="submit"
+        >
+          LogOut
+        </button>
+
         <Link to="/login">
           <button
             className="text-white bg-lime-600 rounded lg:px-5 px-3 py-1 "
@@ -84,7 +55,6 @@ const Header = () => {
           </button>
         </Link>
       </div>
-      {/* )} */}
     </div>
   );
 };

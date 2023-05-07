@@ -5,10 +5,12 @@ import Footer from "../Footer/Footer";
 
 const Main = () => {
   return (
-    <div>
+    <div className="d-flex flex-column">
       <Header></Header>
       <Outlet></Outlet>
-      <Footer></Footer>
+      <div className="mt-40">
+        <Footer></Footer>
+      </div>
     </div>
   );
 };

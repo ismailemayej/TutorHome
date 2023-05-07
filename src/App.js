@@ -4,7 +4,7 @@ import { Routes } from "./utilities/components/Routes/Routes";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App position-relative">
       <RouterProvider router={Routes}></RouterProvider>
     </div>
   );

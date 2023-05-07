@@ -2,11 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Home/Home";
 import SubDatails from "../Home/Items/SubDatails";
-import Subjects from "../Home/Items/Subjects";
 import Blog from "../Home/menu/Blog";
 import Aboutus from "../Home/menu/Aboutus";
 import Contact from "../Home/menu/Contact";
-import Context from "./Context";
+import Login from "../user/Login/Login";
+import Register from "../user/Register/Register";
 
 export const Routes = createBrowserRouter([
   {
@@ -15,6 +15,7 @@ export const Routes = createBrowserRouter([
     children: [
       {
         path: "/",
+        loader: () => fetch("http://localhost:5000/hire"),
         element: <Home></Home>,
       },
       {
@@ -30,18 +31,18 @@ export const Routes = createBrowserRouter([
         element: <Contact></Contact>,
       },
       {
-        path: "/user/:subid",
-        loader: async ({ params }) => {
-          return fetch(`http://localhost:3000/user/${params.subid}`);
-        },
+        path: "/hire/:id",
         element: <SubDatails></SubDatails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/hire/${params.id}`),
       },
       {
-        path: "home",
-        loader: () => {
-          return fetch("subject.json");
-        },
-        element: <Context></Context>,
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
       },
     ],
   },

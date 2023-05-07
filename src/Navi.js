@@ -12,7 +12,7 @@ const Navi = () => {
             className={({ isActive }) =>
               isActive
                 ? "text-white bg-lime-600 rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1"
-                : "rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1 border  bg-lime-400 text-white"
+                : "rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1 border  bg-lime-400 text-black"
             }
             to="/"
           >
@@ -24,7 +24,7 @@ const Navi = () => {
             className={({ isActive }) =>
               isActive
                 ? "text-white bg-lime-600 rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1"
-                : "rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1 border  bg-lime-400 text-white"
+                : "rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1 border  bg-lime-400 text-black"
             }
             to="/blog"
           >
@@ -36,7 +36,7 @@ const Navi = () => {
             className={({ isActive }) =>
               isActive
                 ? "text-white bg-lime-600 rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1"
-                : "rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1 border  bg-lime-400 text-white"
+                : "rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1 border  bg-lime-400 text-black"
             }
             to="/about"
           >
@@ -48,7 +48,7 @@ const Navi = () => {
             className={({ isActive }) =>
               isActive
                 ? "text-white bg-lime-600 rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1"
-                : "rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1 border bg-lime-400 text-white"
+                : "rounded text-decoration-none text-uppercase ms-2 lg:px-5 px-3 py-1 border bg-lime-400 text-black"
             }
             to="contactus"
           >

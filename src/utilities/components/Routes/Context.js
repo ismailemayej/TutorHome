@@ -1,19 +1,55 @@
-import React, { createContext, useEffect, useState } from "react";
-export const Subcontex = createContext();
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { createContext } from "react";
+import app from "../user/firebase";
+
+const Auth = getAuth(app);
+const googlePovider = new GoogleAuthProvider();
+export const AuthContext = createContext();
+
 const Context = ({ children }) => {
-  const [sub, setSub] = useState([]);
+  //------ email and password login-----------
+  const clickLogin = (email, password) => {
+    return signInWithEmailAndPassword(Auth, email, password);
+  };
+  // -----------google login -------------------------
+  const googleLogin = () => {
+    return signInWithPopup(Auth, googlePovider);
+  };
 
-  useEffect(() => {
-    fetch("subject.json")
-      .then((res) => res.json())
-      .then((data) => setSub(data));
-  }, []);
+  // ----------Register-------------
+  const ClickRegister = (email, password) => {
+    return createUserWithEmailAndPassword(Auth, email, password);
+  };
 
-  const subs = { sub };
+  // send email varification --------------------
+  const emailVarfication = () => {
+    return sendEmailVerification(Auth.currentUser);
+  };
+  // ------------- LogOut ---------------------
+  const Logout = () => {
+    return signOut(Auth);
+  };
+  // -------------- current user ----------------
+
+  const info = {
+    clickLogin,
+    googleLogin,
+    ClickRegister,
+    emailVarfication,
+    Logout,
+  };
 
   return (
     <div>
-      <Subcontex.Provider value={subs}>{children}</Subcontex.Provider>
+      <AuthContext.Provider value={info}>{children}</AuthContext.Provider>
     </div>
   );
 };
