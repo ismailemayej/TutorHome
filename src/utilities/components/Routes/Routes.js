@@ -7,6 +7,8 @@ import Aboutus from "../Home/menu/Aboutus";
 import Contact from "../Home/menu/Contact";
 import Login from "../user/Login/Login";
 import Register from "../user/Register/Register";
+import PrivateRoute from "./PrivateRoute";
+import Aply from "../Home/Items/Aply";
 
 export const Routes = createBrowserRouter([
   {
@@ -31,11 +33,23 @@ export const Routes = createBrowserRouter([
         element: <Contact></Contact>,
       },
       {
-        path: "/hire/:id",
+        path: "/hire/:id/:subname",
         element: <SubDatails></SubDatails>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/hire/${params.id}`),
       },
+
+      {
+        path: "/hire/:id/:subname/aply",
+        element: (
+          <PrivateRoute>
+            <Aply></Aply>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/hire/${params.id}`),
+      },
+
       {
         path: "/login",
         element: <Login></Login>,

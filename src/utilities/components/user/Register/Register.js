@@ -1,16 +1,16 @@
 import React, { useContext, useState } from "react";
-import Toast from "react-bootstrap/Toast";
 import google from "../../../../image/google.png";
 import facebook from "../../../../image/fb.png";
 import { Link } from "react-router-dom";
 import "../usercss.css";
 import { AuthContext } from "../../Routes/Context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Register = () => {
-  const [smessege, setSmessege] = useState();
-  const [passwordError, setPasswordError] = useState();
-  const [tost, setTost] = useState();
   const { googleLogin, ClickRegister, emailVarfication } =
     useContext(AuthContext);
+  const [agreement, setAgreement] = useState();
   const handleRegister = (event) => {
     event.preventDefault();
 
@@ -21,21 +21,32 @@ const Register = () => {
 
     const password = form.password.value;
     const confirmPassword = form.confirmpassword.value;
-    console.log(email, password);
+
     ClickRegister(email, password)
       .then((result) => {
         console.log(result);
-        setSmessege("Register is successfull");
+        toast.success("Register is successfull", { position: "top-center" });
         emailVarfication().then(() => {
-          setTost("varfication email send please check email");
+          toast.success("varfication email send please check email", {
+            position: "top-center",
+          });
         });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error.code);
+        toast("error");
+      });
 
     if (!(password === confirmPassword)) {
-      setPasswordError("Password is dont matched");
+      toast.warning("Password dont matched", { position: "top-center" });
     }
   };
+  const handle = (event) => {
+    setAgreement(event.target.checked);
+  };
+  if (!agreement) {
+    toast("");
+  }
 
   const GoogleRegister = () => {
     return googleLogin().then((result) => {
@@ -46,16 +57,15 @@ const Register = () => {
   return (
     <div>
       {/* ---------------- */}
-
+      <ToastContainer />
       {/* ---------------- */}
       <div className="p-4 bg-white h-full grid justify-items-center">
-        <Toast>{tost}</Toast>
         <div className="lg:w-2/5 shadow-2xl w-11/12  border border-red  items-center rounded-lg bg-slate-50 p-5">
           <form onSubmit={handleRegister} action="">
             <h3 className="text-4xl font-bold grid justify-items-center text-orange-600 mb-4">
               Registration
             </h3>
-            <h6 className="mb-1 font-semibold text-green-600">{smessege}</h6>
+
             <h6 className="text-left mb-1 font-semibold text-green-600">
               Enter your full name
             </h6>
@@ -93,9 +103,7 @@ const Register = () => {
               name="password"
               placeholder="Type your password"
             />
-            <h6 className="mb-1 font-semibold text-green-600">
-              {passwordError}
-            </h6>
+
             <h6 className="mt-2 text-left  mb-1 font-semibold  text-green-600">
               Enter your confirm Password
             </h6>
@@ -111,7 +119,7 @@ const Register = () => {
                 className=" text-green-600 me-2 mt-3 mb-3"
                 type="checkbox"
                 name="agreement"
-                // onChange={handle}
+                onChange={handle}
               />
               Accept terms and condition
             </p>
@@ -119,7 +127,7 @@ const Register = () => {
             <div className=" md:grid justify-items-center">
               <button
                 className="border-1 bg-orange-500 text-white py-2 text-xl font-semibold w-full rounded-lg mt-1"
-                // disabled={!agreement}
+                disabled={!agreement}
               >
                 Register
               </button>

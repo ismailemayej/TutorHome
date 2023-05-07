@@ -21,7 +21,7 @@ const Subjects = ({ sub }) => {
           </Card.Text>
           <p>{rating}</p>
         </Card.Body>
-        <Link to={`/hire/${id}`}>
+        <Link to={`/hire/${id}/${subname}`}>
           <button class="btn w-full btn-warning" type="button">
             Datails
           </button>

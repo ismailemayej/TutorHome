@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import logo from "../../../tutor logo.png";
 import Navi from "../../../Navi";
 import { AuthContext } from "../Routes/Context";
+import { toast } from "react-toastify";
 
 const Header = () => {
-  const { Logout } = useContext(AuthContext);
+  const { user, Logout } = useContext(AuthContext);
+
   const Signout = () => {
     Logout()
       .then((result) => {
+        toast.success("Logout succesfull");
         console.log(result);
       })
       .catch((error) => console.error(error));
@@ -38,22 +41,24 @@ const Header = () => {
       <Navi></Navi>
 
       <div>
-        <button
-          onClick={Signout}
-          className="text-white bg-lime-600 rounded lg:px-5 px-3 py-1 "
-          type="submit"
-        >
-          LogOut
-        </button>
-
-        <Link to="/login">
+        {user?.uid ? (
           <button
+            onClick={Signout}
             className="text-white bg-lime-600 rounded lg:px-5 px-3 py-1 "
             type="submit"
           >
-            Login
+            LogOut
           </button>
-        </Link>
+        ) : (
+          <Link to="/login">
+            <button
+              className="text-white bg-lime-600 rounded lg:px-5 px-3 py-1 "
+              type="submit"
+            >
+              Login
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

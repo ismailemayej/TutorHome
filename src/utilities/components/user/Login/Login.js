@@ -1,12 +1,17 @@
 import React, { useContext, useState } from "react";
 import facebook from "../../../../image/fb.png";
 import google from "../../../../image/google.png";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../usercss.css";
 import { AuthContext } from "../../Routes/Context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const [smessege, setSmessege] = useState();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const { googleLogin, clickLogin } = useContext(AuthContext);
   const handleLonin = (event) => {
     event.preventDefault();
@@ -16,11 +21,14 @@ const Login = () => {
 
     clickLogin(email, password)
       .then((result) => {
-        console.log(result);
-        setSmessege(" User Login is Success");
+        toast.success("login is successfully", { position: "top-center" });
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        toast.warning("username or password wrong", { position: "top-center" })
+      );
+    navigate(from, { replce: true });
   };
+
   const GoogleLogin = () => {
     googleLogin()
       .then((result) => console.log(result))
@@ -29,12 +37,13 @@ const Login = () => {
 
   return (
     <div className=" p-4 bg-white h-full grid justify-items-center">
+      <ToastContainer />
       <div className="lg:w-2/5 shadow-2xl w-11/12  border border-red  items-center rounded-lg bg-slate-50 p-5">
         <form onSubmit={handleLonin} action="">
           <h6 className="text-4xl font-bold grid justify-items-center text-orange-600">
             LogIn
           </h6>
-          <h6 className="mb-1 font-semibold text-green-600">{smessege}</h6>
+
           <h6 className="text-left mb-1 font-semibold text-green-600">
             Enter your email
           </h6>
