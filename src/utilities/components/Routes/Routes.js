@@ -18,7 +18,7 @@ export const Routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        loader: () => fetch("http://localhost:5000/hire"),
+        loader: () => fetch("https://tutor-server-five.vercel.app/hire"),
         element: <Home></Home>,
       },
 
@@ -38,7 +38,7 @@ export const Routes = createBrowserRouter([
         path: "/hire/:id/:subname",
         element: <SubDatails></SubDatails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/hire/${params.id}`),
+          fetch(`https://tutor-server-five.vercel.app/hire/${params.id}`),
       },
 
       {
