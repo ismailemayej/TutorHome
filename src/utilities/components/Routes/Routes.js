@@ -49,7 +49,7 @@ export const Routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/hire/${params.id}`),
+          fetch(`https://tutor-server-five.vercel.app/hire/${params.id}`),
       },
 
       {
